@@ -8,7 +8,7 @@ public class Part1 {
 
         t.start();
         try{
-            t.join(4000);
+            t.join();
         }catch(InterruptedException e){
             e.printStackTrace();
         }
