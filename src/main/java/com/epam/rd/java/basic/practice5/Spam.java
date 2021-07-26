@@ -40,6 +40,7 @@ public class Spam {
         for (Thread t : threads) {
             try {
                 t.join();
+                t.interrupt();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -57,11 +58,13 @@ public class Spam {
 
         @Override
         public void run() {
-            System.out.println(message);
-            try {
-                sleep(delay);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            while (true) {
+                System.out.println(message);
+                try {
+                    sleep(delay);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
