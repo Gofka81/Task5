@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Spam {
 
-    private Thread[] threads;
+    private static Thread[] threads;
 
     public Spam(final String[] messages, final int[] delays) {
         threads = new Thread[messages.length];
@@ -18,7 +18,7 @@ public class Spam {
         String readedString = sc.nextLine();
         while (readedString != null) {
             if (readedString.isEmpty()) {
-
+                stop();
                 break;
             }
             if (sc.hasNextLine()) {
@@ -36,7 +36,7 @@ public class Spam {
         }
     }
 
-    public void stop() {
+    public static void stop() {
         for (Thread t : threads) {
             try {
                 t.join();
