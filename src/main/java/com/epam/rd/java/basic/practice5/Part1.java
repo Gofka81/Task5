@@ -13,6 +13,11 @@ public class Part1 {
             e.printStackTrace();
         }
         r.start();
+        try{
+            r.join();
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
     }
 
 }
