@@ -30,6 +30,11 @@ public class Spam {
                 string = null;
             }
         }
+        try {
+            Thread.currentThread().sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         sc.close();
     }
 
@@ -49,6 +54,8 @@ public class Spam {
         private final int delay;
         private final String message;
 
+        private boolean stopThread = false;
+
         public Worker(String message, int delay){
             this.message = message;
             this.delay = delay;
@@ -56,11 +63,13 @@ public class Spam {
 
         @Override
         public void run() {
-            while (true) {
+            while (!stopThread) {
                 System.out.println(message);
                 try {
                     sleep(delay);
                 } catch (InterruptedException e) {
+                    stopThread = true;
+                    interrupt();
                     return;
                 }
             }
