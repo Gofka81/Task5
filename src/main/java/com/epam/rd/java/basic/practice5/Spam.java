@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Spam {
 
-    private Thread[] threads;
+    private final Thread[] threads;
 
     public Spam(final String[] messages, final int[] delays) {
         threads = new Thread[messages.length];
@@ -41,13 +41,13 @@ public class Spam {
 
     public void stop() {
         for(int i =0; i< threads.length; i++) {
-            threads[i].stop();
+            threads[i].interrupt();
         }
     }
 
     private static class Worker extends Thread {
-        private int delay;
-        private String message;
+        private final int delay;
+        private final String message;
 
         public Worker(String message, int delay){
             this.message = message;
@@ -61,7 +61,7 @@ public class Spam {
                 try {
                     sleep(delay);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    return;
                 }
             }
         }
