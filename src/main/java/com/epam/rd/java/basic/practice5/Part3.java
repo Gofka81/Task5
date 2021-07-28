@@ -36,13 +36,17 @@ public class Part3 {
         Part3 t = new Part3(10,3);
         t.startAsync();
         try {
-            t.myThreads[t.myThreads.length-1].join();
+            for(Thread thread: t.myThreads){
+                thread.join();
+            }
         } catch (InterruptedException e) {
             return;
         }
         t.startSync();
         try {
-            t.myThreads[t.myThreads.length-1].join();
+            for(Thread thread: t.myThreads){
+                thread.join();
+            }
         } catch (InterruptedException e) {
             return;
         }
@@ -83,6 +87,7 @@ public class Part3 {
         public void run() {
             for (int i =0; i<numberOfIteration; i++){
                 compare();
+
             }
         }
     }
@@ -98,6 +103,7 @@ public class Part3 {
         public void run() {
             for (int i =0; i<numberOfIteration; i++){
                 compareSync();
+
             }
         }
     }

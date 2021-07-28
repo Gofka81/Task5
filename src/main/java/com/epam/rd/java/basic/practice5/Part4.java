@@ -61,7 +61,6 @@ public class Part4 {
                 try {
                     sleep(1);
                 } catch (InterruptedException e) {
-                    System.out.println("Fuck!");
                     return;
                 }
             }
@@ -85,7 +84,6 @@ public class Part4 {
                 try {
                     sleep(1);
                 } catch (InterruptedException e) {
-                    System.out.println("Fuck!");
                     return;
                 }
             }
