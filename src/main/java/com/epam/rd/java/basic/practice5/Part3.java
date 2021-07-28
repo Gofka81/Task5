@@ -28,12 +28,17 @@ public class Part3 {
         }
         for(int i =0; i< myThreads.length; i++){
             myThreads[i].start();
+            try {
+                myThreads[i].join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
 
     public static void main(final String[] args) {
-        Part3 t = new Part3(2,8);
+        Part3 t = new Part3(10,3);
         t.startAsync();
         try {
             t.myThreads[t.myThreads.length-1].join();
@@ -41,6 +46,11 @@ public class Part3 {
             return;
         }
         t.startSync();
+        try {
+            t.myThreads[t.myThreads.length-1].join();
+        } catch (InterruptedException e) {
+            return;
+        }
     }
 
     public void compare() {
