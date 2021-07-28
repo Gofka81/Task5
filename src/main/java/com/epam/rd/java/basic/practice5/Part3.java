@@ -28,11 +28,6 @@ public class Part3 {
         }
         for(int i =0; i< myThreads.length; i++){
             myThreads[i].start();
-            try {
-                myThreads[i].join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -54,7 +49,7 @@ public class Part3 {
     }
 
     public void compare() {
-        System.out.println(counter+" == "+counter2);
+        System.out.println(counter == counter2);
         counter++;
         try {
             Thread.sleep(100);
@@ -66,7 +61,7 @@ public class Part3 {
 
     public void compareSync() {
         synchronized (this){
-            System.out.println(counter+" == "+counter2);
+            System.out.println(counter == counter2);
             counter++;
             try {
                 Thread.sleep(100);
