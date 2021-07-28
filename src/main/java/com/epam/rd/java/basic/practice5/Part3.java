@@ -22,6 +22,7 @@ public class Part3 {
         }
     }
     public void startSync(){
+        counter= counter2 =0;
         for(int i=0; i< myThreads.length; i++){
             myThreads[i] = new MyThread1(numberOfIterations);
         }
@@ -32,8 +33,13 @@ public class Part3 {
 
 
     public static void main(final String[] args) {
-        Part3 t = new Part3(2,2);
-        //t.startAsync();
+        Part3 t = new Part3(2,8);
+        t.startAsync();
+        try {
+            t.myThreads[t.myThreads.length-1].join();
+        } catch (InterruptedException e) {
+            return;
+        }
         t.startSync();
     }
 
