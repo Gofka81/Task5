@@ -1,6 +1,5 @@
 package com.epam.rd.java.basic.practice5;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
@@ -10,7 +9,7 @@ public class Part2 {
         System.setIn(new InputStream()  {
             private  boolean check = false;
             @Override
-            public int read() throws IOException{
+            public int read(){
                 int i = -1;
                 if(!check)
                     try {
@@ -19,6 +18,7 @@ public class Part2 {
                         i = "\n".getBytes(StandardCharsets.UTF_8)[0];
                     } catch (InterruptedException e) {
                         e.printStackTrace();
+                        Thread.currentThread().interrupt();
                     }
                 return i;
             }

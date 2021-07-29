@@ -8,27 +8,30 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 public class Part5 {
 
     private File f;
     private RandomAccessFile raf;
     private PrintThread[] threads;
 
+
     public static void main(final String[] args) {
+        Logger logger = Logger.getAnonymousLogger();
         Part5 t = new Part5();
         t.createFile();
         try {
             t.raf = new RandomAccessFile("part5.txt", "rw");
 
         } catch (IOException e) {
-            System.out.println("oops");
+            logger.log(Level.SEVERE, "IOException1");
         }
         t.createThreads(10);
         t.start();
         try {
             t.join();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
         t.printFile();
     }
@@ -43,7 +46,7 @@ public class Part5 {
             }
             scanner.close();
         } catch (IOException ex) {
-            logger.log(Level.SEVERE, "IOException");
+            logger.log(Level.SEVERE, "IOException2");
         }
         System.out.println(sb.toString().trim());
     }
@@ -87,15 +90,16 @@ public class Part5 {
     }
 
     public void createFile(){
+        Logger logger = Logger.getAnonymousLogger();
         f = new File("part5.txt");
         if(f.exists()) {
-            f.delete();
+            f.delete(); //NOSONAR
         }
         try {
-            f.createNewFile();
+            if(!f.createNewFile()) throw new IOException();
 
         } catch (IOException e) {
-            System.out.println("oops");
+            logger.log(Level.SEVERE, "IOException3");
         }
     }
 
