@@ -33,21 +33,26 @@ public class Part3 {
 
 
     public static void main(final String[] args) {
-
-    }
-
-    public void compare() {
-        System.out.println(counter == counter2);
-        counter++;
+        Part3 t = new Part3(10,3);
+        t.startAsync();
         try {
-            Thread.sleep(100);
+            for(Thread thread: t.myThreads){
+                thread.join();
+            }
         } catch (InterruptedException e) {
             return;
         }
-        counter2++;
+        t.startSync();
+        try {
+            for(Thread thread: t.myThreads){
+                thread.join();
+            }
+        } catch (InterruptedException e) {
+            return;
+        }
     }
 
-    public void compareSync() {
+    public void compare() {
         synchronized (this){
             System.out.println(counter == counter2);
             counter++;
@@ -58,6 +63,17 @@ public class Part3 {
             }
             counter2++;
         }
+    }
+
+    public void compareSync() {
+        System.out.println(counter == counter2);
+        counter++;
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            return;
+        }
+        counter2++;
     }
 
     class MyThread extends Thread{
