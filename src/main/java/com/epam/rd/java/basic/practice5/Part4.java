@@ -14,7 +14,6 @@ public class Part4 {
     private static int max1;
     private static int max2;
 
-    private final Matrix matrix;
     private final Thread[] threads;
 
     public static void main(final String[] args) {
@@ -34,10 +33,8 @@ public class Part4 {
         System.out.println((System.nanoTime() - time2)/1000000);
     }
 
-
-
     public Part4(){
-        matrix = new Matrix();
+        Matrix ma = new Matrix();
         threads = new Thread[Matrix.length];
 
         for(int i=0; i< Matrix.length; i++){
@@ -129,5 +126,3 @@ public class Part4 {
         }
     }
 }
-
-
