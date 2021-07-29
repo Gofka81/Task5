@@ -17,8 +17,8 @@ public class Part3 {
         for(int i=0; i< myThreads.length; i++){
             myThreads[i] = new MyThread(numberOfIterations);
         }
-        for(int i =0; i< myThreads.length; i++){
-            myThreads[i].start();
+        for (Thread myThread : myThreads) {
+            myThread.start();
         }
     }
     public void startSync(){
@@ -26,21 +26,21 @@ public class Part3 {
         for(int i=0; i< myThreads.length; i++){
             myThreads[i] = new MyThread1(numberOfIterations);
         }
-        for(int i =0; i< myThreads.length; i++){
-            myThreads[i].start();
+        for (Thread myThread : myThreads) {
+            myThread.start();
         }
     }
 
 
     public static void main(final String[] args) {
-        Part3 t = new Part3(10,3);
+        Part3 t = new Part3(2,10);
         t.startAsync();
         try {
             for(Thread thread: t.myThreads){
                 thread.join();
             }
         } catch (InterruptedException e) {
-            return;
+            Thread.currentThread().interrupt();
         }
         t.startSync();
         try {
@@ -48,36 +48,36 @@ public class Part3 {
                 thread.join();
             }
         } catch (InterruptedException e) {
-            return;
+            Thread.currentThread().interrupt();
         }
     }
 
     public void compare() {
-        System.out.println(counter == counter2);
+        System.out.println(counter+ "==" +counter2);
         counter++;
         try {
             Thread.sleep(100);
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             return;
         }
         counter2++;
     }
 
-    public void compareSync() {
-        synchronized (this){
-            System.out.println(counter == counter2);
-            counter++;
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                return;
-            }
-            counter2++;
+    public synchronized void compareSync() {
+        System.out.println(counter+ "==" +counter2);
+        counter++;
+        try {
+             Thread.sleep(100); //NOSONAR
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return;
         }
+        counter2++;
     }
 
     class MyThread extends Thread{
-        private int numberOfIteration;
+        private final int numberOfIteration;
 
         public MyThread(int numberOfIterations){
             this.numberOfIteration = numberOfIterations;
@@ -93,7 +93,7 @@ public class Part3 {
     }
 
     class MyThread1 extends Thread{
-        private int numberOfIteration;
+        private final int numberOfIteration;
 
         public MyThread1(int numberOfIterations){
             this.numberOfIteration = numberOfIterations;
