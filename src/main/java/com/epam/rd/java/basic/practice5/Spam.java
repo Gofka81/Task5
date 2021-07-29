@@ -31,9 +31,9 @@ public class Spam {
             }
         }
         try {
-            Thread.currentThread().sleep(100);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
         sc.close();
     }
@@ -45,8 +45,8 @@ public class Spam {
     }
 
     public void stop() {
-        for(int i =0; i< threads.length; i++) {
-            threads[i].interrupt();
+        for (Thread thread : threads) {
+            thread.interrupt();
         }
     }
 

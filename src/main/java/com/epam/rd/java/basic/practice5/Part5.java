@@ -33,10 +33,10 @@ public class Part5 {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        t.printFile();
+        System.out.println(t.printFile());
     }
 
-    public void printFile(){
+    public String printFile(){
         Logger logger = Logger.getAnonymousLogger();
         StringBuilder sb = new StringBuilder();
         try {
@@ -48,7 +48,7 @@ public class Part5 {
         } catch (IOException ex) {
             logger.log(Level.SEVERE, "IOException2");
         }
-        System.out.println(sb.toString().trim());
+        return sb.toString().trim();
     }
 
     public void createThreads(int num){
