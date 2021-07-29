@@ -15,7 +15,7 @@ public class Part3 {
 
     public void startAsync(){
         for(int i=0; i< myThreads.length; i++){
-            myThreads[i] = new MyThread(numberOfIterations);
+            myThreads[i] = new MyThread();
         }
         for (Thread myThread : myThreads) {
             myThread.start();
@@ -52,8 +52,8 @@ public class Part3 {
         }
     }
 
-    public void compare(int numberOfIteration) {
-        for (int i =0; i<numberOfIteration; i++) {
+    public void compare() {
+        for (int i =0; i<numberOfIterations; i++) {
             System.out.println(counter + "==" + counter2);
             counter++;
             try {
@@ -79,15 +79,13 @@ public class Part3 {
     }
 
     class MyThread extends Thread{
-        private final int numberOfIteration;
 
-        public MyThread(int numberOfIterations){
-            this.numberOfIteration = numberOfIterations;
+        public MyThread(){
         }
 
         @Override
         public void run() {
-                compare(numberOfIteration);
+            compare();
         }
     }
 
