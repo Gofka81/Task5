@@ -52,16 +52,18 @@ public class Part3 {
         }
     }
 
-    public void compare() {
-        System.out.println(counter+ "==" +counter2);
-        counter++;
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            return;
+    public void compare(int numberOfIteration) {
+        for (int i =0; i<numberOfIteration; i++) {
+            System.out.println(counter + "==" + counter2);
+            counter++;
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
+            counter2++;
         }
-        counter2++;
     }
 
     public synchronized void compareSync() {
@@ -85,10 +87,7 @@ public class Part3 {
 
         @Override
         public void run() {
-            for (int i =0; i<numberOfIteration; i++){
-                compare();
-
-            }
+                compare(numberOfIteration);
         }
     }
 
