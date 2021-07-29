@@ -88,12 +88,10 @@ public class Part4 {
                     return;
                 }
             }
-            compare(max);
-        }
-
-        public synchronized void compare(int max){
-            if (max > max1) {
-                max1 = max;
+            synchronized (threads){
+                if (max > max1) {
+                    max1 = max;
+                }
             }
         }
     }
