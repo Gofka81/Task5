@@ -23,8 +23,8 @@ public class Part3 {
     }
     public void startSync(){
         counter= counter2 =0;
-        for(int i=0; i< myThreads.length; i++){
-            myThreads[i] = new MyThread1(numberOfIterations);
+        for(int j=0; j< myThreads.length; j++){
+            myThreads[j] = new MyThread1(numberOfIterations);
         }
         for (Thread myThread : myThreads) {
             myThread.start();
@@ -89,17 +89,18 @@ public class Part3 {
 
         @Override
         public void run() {
-            for (int i =0; i<numberOfIteration; i++){
-                System.out.println(counter+ "==" +counter2);
-                counter++;
-                try {
-                    Thread.sleep(100); //NOSONAR
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
+            for (int j =0; j<numberOfIteration; j++){
+                synchronized (myThreads) {
+                    System.out.println(counter + "==" + counter2);
+                    counter++;
+                    try {
+                        Thread.sleep(100); //NOSONAR
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
 
+                    }
+                    counter2++;
                 }
-                counter2++;
-
             }
         }
     }
