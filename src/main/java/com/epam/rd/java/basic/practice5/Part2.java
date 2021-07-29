@@ -17,7 +17,6 @@ public class Part2 {
                         check = true;
                         i = "\n".getBytes(StandardCharsets.UTF_8)[0];
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
                         Thread.currentThread().interrupt();
                     }
                 return i;
@@ -30,7 +29,6 @@ public class Part2 {
         try {
             t.join();
         } catch (InterruptedException e) {
-            e.printStackTrace();
             t.interrupt();
         }
 

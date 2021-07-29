@@ -71,21 +71,23 @@ public class Part5 {
     }
 
     public synchronized void write(int num,int iteration){
+        Logger logger = Logger.getAnonymousLogger();
         try {
             raf.seek(iteration+ (long) num *(20+System.lineSeparator().length()));
             raf.write('0'+num);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "IOException3");
         }
 
     }
 
     public synchronized void separator(int num){
+        Logger logger = Logger.getAnonymousLogger();
         try {
             raf.seek(20 + (long) num *(20+System.lineSeparator().length()));
             raf.write(System.lineSeparator().getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "IOException4");
         }
     }
 
@@ -99,7 +101,7 @@ public class Part5 {
             if(!f.createNewFile()) throw new IOException();
 
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "IOException3");
+            logger.log(Level.SEVERE, "IOException5");
         }
     }
 
