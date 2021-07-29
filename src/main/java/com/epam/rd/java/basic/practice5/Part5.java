@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Part5 {
 
@@ -27,7 +30,22 @@ public class Part5 {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println(Thread.activeCount());
+        t.printFile();
+    }
+
+    public void printFile(){
+        Logger logger = Logger.getAnonymousLogger();
+        StringBuilder sb = new StringBuilder();
+        try {
+            Scanner scanner = new Scanner(f, "UTF-8");
+            while (scanner.hasNextLine()) {
+                sb.append(scanner.nextLine()).append(System.lineSeparator());
+            }
+            scanner.close();
+        } catch (IOException ex) {
+            logger.log(Level.SEVERE, "IOException");
+        }
+        System.out.println(sb.toString().trim());
     }
 
     public void createThreads(int num){
@@ -38,8 +56,8 @@ public class Part5 {
     }
 
     public void start(){
-        for(int i=0; i< threads.length; i++){
-            threads[i].start();
+        for (PrintThread thread : threads) {
+            thread.start();
         }
     }
 
@@ -82,7 +100,7 @@ public class Part5 {
     }
 
     class PrintThread extends Thread {
-        private int num;
+        private final int num;
 
         public PrintThread(int num){
             this.num = num;
