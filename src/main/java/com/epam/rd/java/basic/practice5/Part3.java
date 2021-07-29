@@ -31,49 +31,30 @@ public class Part3 {
         }
     }
 
+    public void stop(){
+        try {
+            for(Thread thread: myThreads){
+                thread.join();
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
 
     public static void main(final String[] args) {
         Part3 t = new Part3(2,10);
-        t.startAsync();
-        try {
-            for(Thread thread: t.myThreads){
-                thread.join();
-            }
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-        t.startSync();
-        try {
-            for(Thread thread: t.myThreads){
-                thread.join();
-            }
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+        t.compare();
+        t.compareSync();
     }
 
     public void compare() {
-        System.out.println(counter+ "==" +counter2);
-        counter++;
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            return;
-        }
-        counter2++;
+        startAsync();
+        stop();
     }
 
     public synchronized void compareSync() {
-        System.out.println(counter+ "==" +counter2);
-        counter++;
-        try {
-             Thread.sleep(100); //NOSONAR
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-
-        }
-        counter2++;
+        startSync();
+        stop();
     }
 
     class MyThread extends Thread{
@@ -86,7 +67,15 @@ public class Part3 {
         @Override
         public void run() {
             for (int i =0; i<numberOfIteration; i++){
-                compare();
+                System.out.println(counter+ "==" +counter2);
+                counter++;
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return;
+                }
+                counter2++;
             }
         }
     }
@@ -101,7 +90,15 @@ public class Part3 {
         @Override
         public void run() {
             for (int i =0; i<numberOfIteration; i++){
-                compareSync();
+                System.out.println(counter+ "==" +counter2);
+                counter++;
+                try {
+                    Thread.sleep(100); //NOSONAR
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+
+                }
+                counter2++;
 
             }
         }
