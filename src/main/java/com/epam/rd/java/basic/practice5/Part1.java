@@ -6,20 +6,15 @@ public class Part1 {
         Thread t = new MyThreadC();
         Thread r = new Thread(new MyThreadI());
 
-        t.start();
         try{
+            t.start();
             t.join();
-        }catch(InterruptedException e){
-            e.printStackTrace();
-        }
-        r.start();
-        try{
+            r.start();
             r.join();
         }catch(InterruptedException e){
             e.printStackTrace();
         }
     }
-
 }
 
 class MyThreadC extends Thread{

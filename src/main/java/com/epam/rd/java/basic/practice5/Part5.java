@@ -20,13 +20,14 @@ public class Part5 {
         } catch (IOException e) {
             System.out.println("oops");
         }
-        t.createThreads(9);
+        t.createThreads(10);
         t.start();
         try {
             t.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        System.out.println(Thread.activeCount());
     }
 
     public void createThreads(int num){
